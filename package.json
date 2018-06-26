@@ -1,5 +1,5 @@
 {
-  "name": "NodeRepo",
+  "name": "noderepo",
   "description": "",
   "version": "1.0.0",
   "main": "app.js",
@@ -8,10 +8,20 @@
   },
   "keywords": [],
   "author": "Marek Hasselder",
-  "license": "",
-  "homepage": "https://github.com/ashleygwilliams/my_package",
+  "license": "ISC",
   "dependencies": {
     "msgpack-lite": "^0.1.26",
-    "uws": "^10.148.1"
-  }
+    "uws": "^10.148.1",
+    "babylonjs": "^3.2.0",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrystallDEV/NodeRepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CrystallDEV/NodeRepo/issues"
+  },
+  "homepage": "https://github.com/CrystallDEV/NodeRepo#readme"
 }

@@ -1,0 +1,56 @@
+<canvas id="ctx" width="500" height="500" style="border: 1px solid"></canvas>
+<script>    
+    var ctx = document.getElementById('ctx').getContext("2d");
+    ctx.font = "30px Arial";
+
+    var ws = new WebSocket('ws://192.168.10.10:40510');
+
+    // event emmited when connected
+    ws.onopen = function () {
+        console.log('websocket is connected ...')
+    }
+
+    // event emmited when receiving message
+    ws.onmessage = function (message) {
+        var data = JSON.parse(message.data);
+        console.log(data);
+        if (data.type === 'newPosition')
+            updatePlayer(data.players);
+    }
+
+    document.onkeydown = function (event) {
+        if (event.keyCode === 65) //a
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'left', state: true }));
+        else if (event.keyCode === 87) //w
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'up', state: true }));
+        else if (event.keyCode === 68) //d
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'right', state: true }));
+        else if (event.keyCode === 83) //s
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'down', state: true }));
+        else
+            ws.send(JSON.stringify({ type: 'other' }));
+
+    };
+
+    document.onkeyup = function (event) {
+        if (event.keyCode === 65) //a
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'left', state: false }));
+        else if (event.keyCode === 87) //w
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'up', state: false }));
+        else if (event.keyCode === 68) //d
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'right', state: false }));
+        else if (event.keyCode === 83) //s
+            ws.send(JSON.stringify({ type: 'keyPress', inputId: 'down', state: false }));
+    };
+
+    function updatePlayer(data) {
+        ctx.clearRect(0, 0, 500, 500);
+        for (var i = 0; i < data.length; i++) {
+            var element = data[i];
+            ctx.fillText(element.number, element.x, element.y);
+        }
+    }
+
+
+</script>
+</head>
